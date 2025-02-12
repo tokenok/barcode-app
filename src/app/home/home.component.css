@@ -1,0 +1,8 @@
+/* src/app/home/home.component.css */
+.upc-item {
+    border: 1px solid #333;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    background-color: #1e1e1e;
+  }
