@@ -1,0 +1,39 @@
+/* src/styles.css */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: #ffffff;
+  }
+  
+  a {
+    color: #bb86fc;
+  }
+  
+  input, button {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    border: 1px solid #333;
+    padding: 8px;
+    border-radius: 4px;
+  }
+  
+  /* Additional styling for barcode items */
+  .upc-item {
+    border: 1px solid #333;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    background-color: #1e1e1e;
+  }
