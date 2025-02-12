@@ -14,16 +14,15 @@ export class HomeComponent implements OnInit {
   ocrText: string = '';
   upcList: string[] = [];
   productImages: { [upc: string]: string } = {};
+
   processing: boolean = false;
   message: string = '';
 
   constructor(private productService: ProductService) { }
 
-  ngOnInit(): void {
-    console.log('HomeComponent initialized');
-  }
+  ngOnInit(): void {}
 
-  // Called when the user selects or captures an image.
+  // Called when a user selects (or captures) an image
   onFileSelected(event: any) {
     if (event.target.files && event.target.files[0]) {
       this.imageFile = event.target.files[0];
@@ -31,7 +30,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  // Process the image using Tesseract OCR.
+  // Run OCR on the selected image using Tesseract.js
   processImage() {
     if (!this.imageFile) return;
     this.processing = true;
@@ -51,19 +50,21 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  // Extract UPC codes (assumed 12-digit numbers) from the OCR text.
+  // Extract UPC codes from the OCR text (assumes UPCs are 12-digit numbers)
   extractUPCs() {
     const regex = /\b\d{12}\b/g;
     const matches = this.ocrText.match(regex);
     if (matches) {
-      // Remove duplicates.
+      // Remove duplicates, if any.
       this.upcList = Array.from(new Set(matches));
-      // Generate barcode images.
+      // Generate barcode images for each UPC.
       this.generateBarcodes();
-      // Optionally, retrieve product info for each UPC.
+      // For each UPC, query the product API for additional info (e.g., product image)
       this.upcList.forEach(upc => {
         this.productService.getProductInfo(upc).subscribe(result => {
+          // Example: using UPCItemDB's response structure.
           if (result && result.items && result.items.length > 0) {
+            // If images are available, take the first one.
             this.productImages[upc] = result.items[0].images ? result.items[0].images[0] : '';
           }
         }, error => {
@@ -75,9 +76,9 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  // Generate barcode SVG images using JsBarcode.
+  // Generate barcode images using JsBarcode. We assume that the HTML contains an <svg> with an id for each UPC.
   generateBarcodes() {
-    // Allow time for Angular to render the SVG elements.
+    // Wait a moment for Angular to update the view.
     setTimeout(() => {
       this.upcList.forEach((upc, index) => {
         const svgElement = document.getElementById('barcode' + index);
