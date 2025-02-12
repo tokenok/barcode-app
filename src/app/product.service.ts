@@ -7,13 +7,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductService {
-  // Example API endpoint – UPCItemDB trial endpoint.
   private apiUrl = 'https://api.upcitemdb.com/prod/trial/lookup';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getProductInfo(upc: string): Observable<any> {
-    // UPCItemDB expects a query parameter named 'upc'
-    return this.http.get<any>(this.apiUrl, { params: { upc: upc } });
+    return this.http.get<any>(this.apiUrl, { params: { upc } });
   }
 }
