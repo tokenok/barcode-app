@@ -1,0 +1,28 @@
+<!-- src/app/home/home.component.html -->
+<div class="container">
+  <h1>UPC Barcode Generator</h1>
+  <input type="file" accept="image/*" (change)="onFileSelected($event)" capture="environment">
+  
+  <!-- Status/processing message -->
+  <div *ngIf="processing">{{ message }}</div>
+  
+  <!-- Display UPCs and their barcodes when available -->
+  <div *ngIf="!processing && upcList.length > 0">
+    <h2>Detected UPCs:</h2>
+    <div *ngFor="let upc of upcList; let i = index" class="upc-item">
+      <p><strong>UPC:</strong> {{ upc }}</p>
+      <!-- SVG for the barcode -->
+      <svg [attr.id]="'barcode' + i"></svg>
+      <!-- Display product image if available -->
+      <div *ngIf="productImages[upc]">
+         <p><strong>Product Image:</strong></p>
+         <img [src]="productImages[upc]" alt="Product Image" style="max-width:200px;">
+      </div>
+    </div>
+  </div>
+  
+  <!-- Show a message if no UPC codes are found after processing -->
+  <div *ngIf="!processing && upcList.length === 0 && ocrText">
+    <p>No UPC codes found in the image.</p>
+  </div>
+</div>
