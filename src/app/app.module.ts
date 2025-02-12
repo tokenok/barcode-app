@@ -1,19 +1,19 @@
-// src/app/app.module.ts
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'; // <-- Import HttpClientModule
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';  // We'll create this next
+import { HomeComponent } from './home/home.component';
+// import other services as needed
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent  // and any other non-standalone components
   ],
   imports: [
     BrowserModule,
-    HttpClientModule  // <-- Add here
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
